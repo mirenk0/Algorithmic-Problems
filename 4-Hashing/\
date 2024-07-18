@@ -1,0 +1,30 @@
+def count(t):
+    n = len(t)
+    res, cnt, right = 0, 0, 0
+    ways = set()
+
+    for left in range(n):
+        if t[right] not in ways and right < n:
+            ways.add(t[right])
+            cnt += 1
+            right += 1
+
+        res += cnt
+
+        ways.remove(t[left]) 
+        cnt -= 1
+
+    final_count = 0
+    for i in ways:
+        selection = i // 2
+        if i % 2 == 0 and selection in ways:
+            final_count += 1
+
+    return final_count
+
+
+if __name__ == "__main__":
+    print(count([1,2,3,4])) # 2
+    print(count([1,1,1,1])) # 0
+    print(count([1,2,1,2,1,2])) # 6
+    print(count([5,1,3,4,1,6])) # 1
